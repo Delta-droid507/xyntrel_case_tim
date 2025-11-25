@@ -1,0 +1,29 @@
+{
+  "expectations": [
+    {
+      "expectation_type": "expect_table_row_count_to_be_between",
+      "kwargs": {
+        "min_value": 100
+      }
+    },
+    {
+      "expectation_type": "expect_column_values_to_not_be_null",
+      "kwargs": {
+        "column": "customer_id"
+      },
+      "notes": "raw/orders should always have customer_id"
+    },
+    {
+      "expectation_type": "expect_column_values_to_be_in_set",
+      "kwargs": {
+        "column": "currency",
+        "value_set": [
+          "EUR",
+          "USD",
+          "GBP"
+        ]
+      },
+      "notes": "GBP may appear only after ~month 6"
+    }
+  ]
+}
