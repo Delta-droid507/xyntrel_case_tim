@@ -1,6 +1,7 @@
-# silver_orders.py
+# src/pipelines/silver_orders.py
 import pandas as pd
-from io_raw import load_orders_raw
+from src.io_raw import load_orders_raw
+
 
 STATUS_MAP = {
     "Completed": "Completed",
@@ -17,12 +18,14 @@ def _parse_orders_types(df: pd.DataFrame) -> pd.DataFrame:
     df["order_date"] = pd.to_datetime(df["order_date"], errors="coerce")
     df["total_amount"] = (
         df["total_amount"]
-        .astype(str)
-        .str.replace(",", ".", regex=False)
-        .astype(float)
+        .astype(str).str.strip()
+        .str.replace(r"\.(?=\d{3}\b)", "", regex=True)  # drop thousand dots
+        .str.replace(",", ".", regex=False)            # comma → dot
+        .pipe(pd.to_numeric, errors="coerce")
     )
     df["currency"] = df["currency"].astype(str).str.strip()
     return df
+
 
 def _normalize_status(df: pd.DataFrame) -> pd.DataFrame:
     df = df.copy()
