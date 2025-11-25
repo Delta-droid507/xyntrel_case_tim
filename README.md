@@ -1,4 +1,3 @@
-# Case instructies (verkort)
 # 📦 Case Instructions (Simplified & Clarified)
 
 You're working with a layered data architecture:
