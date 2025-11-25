@@ -63,7 +63,8 @@ def _split_orders_exceptions(df: pd.DataFrame):
 
 def build_silver_orders(now_ts: pd.Timestamp | None = None):
     if now_ts is None:
-        now_ts = pd.Timestamp.utcnow()
+        # use naive timestamp (no tz) to match order_date
+        now_ts = pd.Timestamp.utcnow().tz_localize(None)
 
     df_raw = load_orders_raw()
     df_typed = _parse_orders_types(df_raw)
