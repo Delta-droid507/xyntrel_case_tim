@@ -9,7 +9,7 @@ from src.pipelines.silver_orders import build_silver_orders
 def main() -> None:
     # project root: from src/runners/ → up two levels
     base_dir = Path(__file__).resolve().parents[2]
-    silver_dir = base_dir / "silver"
+    silver_dir = base_dir / "data" / "silver"
     silver_dir.mkdir(exist_ok=True)
 
     # ---- Orders ----
